@@ -1,0 +1,12 @@
+- name: Gathering local host
+  hosts: internal_web
+  become: true
+  gather_facts: true
+  tasks:
+    - name: Retrieve content
+      ansible.builtin.get_url:
+        url: http://www.google.com
+        dest: /config/google.htlm
+      # headers:
+      #   key1: one
+      #   key2: two

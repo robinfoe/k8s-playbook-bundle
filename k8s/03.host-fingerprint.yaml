@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: host-fingerprint-config
+  namespace: playbook
+data:
+  known_hosts: |+
+    [x.x.x.x]:???? ssh-ed25519 the finger print.....

@@ -1,0 +1,4 @@
+[internal_web]
+172.20.10.6 ansible_connection=ssh  ansible_user=sshsvr ansible_ssh_pass=password ansible_port=8022 ansible_sudo_pass=password
+
+

@@ -1,0 +1,34 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: playbook-bundle
+  namespace: playbook
+spec:
+  template:
+    spec:
+      containers:
+      - name: playbook-bundle
+        image: library/apb:1.0
+        imagePullPolicy: Never
+        # command: [ "/bin/bash", "-c", "--" ]
+        # args: [ "while true; do sleep 30; done;" ]
+        command: ["ansible-playbook", "-i" , "/runner/playbook/inventory/hosts", "/runner/playbook/publish-content.yaml"]
+        volumeMounts: 
+        - name: playbook-run
+          mountPath: /runner/playbook
+        - name: host-config
+          mountPath: /runner/playbook/inventory
+        - name: host-fingerprint-config
+          mountPath: /runner/.ssh
+      restartPolicy: Never
+      volumes: 
+      - name: playbook-run
+        configMap: 
+          name: playbook-run
+      - name: host-config
+        configMap:
+          name: host-config
+      - name: host-fingerprint-config
+        configMap:
+          name: host-fingerprint-config
+  backoffLimit: 4  
